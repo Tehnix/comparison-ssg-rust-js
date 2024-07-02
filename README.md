@@ -5,5 +5,5 @@ This is a comparison of various static site generators (SSG) using different fra
 Currently, the following frameworks are included:
 
 - [Next.js](https://nextjs.org/docs) in `next-example`
-- [WIP] [Leptos](https://leptos.dev) in `leptos-example`
-- [WIP] [Dioxus](https://dioxuslabs.com) in `dioxus-example`
+- [WIP] [Leptos](https://book.leptos.dev) in `leptos-example`
+- [WIP] [Dioxus](https://dioxuslabs.com/learn/0.5/) in `dioxus-example`
