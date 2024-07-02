@@ -16,15 +16,9 @@ async fn main() {
     let leptos_options = conf.leptos_options;
     let addr = leptos_options.site_addr;
 
+    // Build our static routes
     let (routes, static_data_map) = generate_route_list_with_ssg(App); // This line here
     build_static_routes(&leptos_options, App, &routes, static_data_map).await; // This line here
-    // Move each file from <route>.html --> <route>/index.html
-    routes.iter().for_each(|route| {
-        if route.path() == "/" { return; }
-        print!("Moving route: {:?}\n", &route.path());
-        std::fs::create_dir_all(format!("target/site{}", route.path())).unwrap();
-        std::fs::copy(format!("target/site{}.html", route.path()), format!("target/site{}/index.html", route.path())).unwrap();
-    });
 
     // build our application with a route
     let app = Router::new()

@@ -20,7 +20,6 @@ wasm-bindgen = "=0.2.92"
 thiserror = "1"
 tracing = { version = "0.1", optional = true }
 http = "1"
-leptos-use = "0.10.10"                                                     # This line here
 
 [features]
 hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate"]
@@ -33,7 +32,6 @@ ssr = [
     "leptos/ssr",
     "leptos_meta/ssr",
     "leptos_router/ssr",
-    "leptos-use/ssr",    # This line here
     "dep:tracing",
 ]
 
