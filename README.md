@@ -1,2 +1,9 @@
-# comparison-ssg-rust-js
-Comparison of SSG using various JS and Rust frameworks
+# Comparison of SSG using various JS and Rust frameworks
+
+This is a comparison of various static site generators (SSG) using different frameworks. The goal is to compare what's possible in each framework.
+
+Currently, the following frameworks are included:
+
+- [Next.js](https://nextjs.org/docs) in `next-example`
+- [WIP] [Leptos](https://leptos.dev) in `leptos-example`
+- [WIP] [Dioxus](https://dioxuslabs.com) in `dioxus-example`
