@@ -24,11 +24,27 @@ pub fn App() -> impl IntoView {
         }>
             <main>
                 <Routes>
-                    <Route path="" view=HomePage/>
                     // This line here
-                    <Route path="/sub-page" view=SubPage/>
+                    <StaticRoute
+                        mode=StaticMode::Upfront
+                        path=""
+                        view=HomePage
+                        static_params=move || Box::pin(async move { StaticParamsMap::default() })
+                    />
                     // This line here
-                    <Route path="/another-page" view=AnotherPage/>
+                    <StaticRoute
+                        mode=StaticMode::Upfront
+                        path="/sub-page"
+                        view=SubPage
+                        static_params=move || Box::pin(async move { StaticParamsMap::default() })
+                    />
+                    // This line here
+                    <StaticRoute
+                        mode=StaticMode::Upfront
+                        path="/another-page"
+                        view=AnotherPage
+                        static_params=move || Box::pin(async move { StaticParamsMap::default() })
+                    />
                 </Routes>
             </main>
         </Router>
