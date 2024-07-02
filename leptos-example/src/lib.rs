@@ -1,7 +1,9 @@
+pub mod anotherpage; // This line here
 pub mod app;
 pub mod error_template;
 #[cfg(feature = "ssr")]
 pub mod fileserv;
+pub mod subpage; // This line here
 
 #[cfg(feature = "hydrate")]
 #[wasm_bindgen::prelude::wasm_bindgen]

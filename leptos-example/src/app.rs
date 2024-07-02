@@ -1,4 +1,6 @@
+use crate::anotherpage::AnotherPage; // This line here
 use crate::error_template::{AppError, ErrorTemplate};
+use crate::subpage::SubPage; // This line here
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
@@ -9,10 +11,6 @@ pub fn App() -> impl IntoView {
     provide_meta_context();
 
     view! {
-
-
-        // injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/leptos-example.css"/>
 
         // sets the document title
@@ -22,14 +20,15 @@ pub fn App() -> impl IntoView {
         <Router fallback=|| {
             let mut outside_errors = Errors::default();
             outside_errors.insert_with_default_key(AppError::NotFound);
-            view! {
-                <ErrorTemplate outside_errors/>
-            }
-            .into_view()
+            view! { <ErrorTemplate outside_errors/> }.into_view()
         }>
             <main>
                 <Routes>
                     <Route path="" view=HomePage/>
+                    // This line here
+                    <Route path="/sub-page" view=SubPage/>
+                    // This line here
+                    <Route path="/another-page" view=AnotherPage/>
                 </Routes>
             </main>
         </Router>
@@ -46,5 +45,9 @@ fn HomePage() -> impl IntoView {
     view! {
         <h1>"Welcome to Leptos!"</h1>
         <button on:click=on_click>"Click Me: " {count}</button>
+        // This line here
+        <A href="/sub-page">"Sub page"</A>
+        // This line here
+        <A href="/another-page">"Another page"</A>
     }
 }
