@@ -17,6 +17,10 @@
       "path": "dioxus-example"
     },
     {
+      "name": "dioxus-example-plain",
+      "path": "dioxus-example-plain"
+    },
+    {
       "name": "perseus-example",
       "path": "perseus-example"
     }
@@ -35,7 +39,8 @@
       "**/dist": true,
       "**/.vscode": false,
       ".github": true,
-      "*-example": true
+      "*-example": true,
+      "*-example-plain": true
     },
     "search.exclude": {
       "**/node_modules": true,

@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 
 use dioxus::prelude::*;
-use tracing::{info, Level};
+use tracing::info;
 
 mod subpage; // This line here
 use subpage::SubPage; // This line here
@@ -18,10 +18,59 @@ enum Route {
     AnotherPage {}, // This line here
 }
 
+// Generate all routes and output them to the docs path
+#[cfg(feature = "server")]
+#[tokio::main]
+async fn main() {
+    let wrapper = DefaultRenderer {
+        before_body: r#"<!DOCTYPE html>
+<html>
+<head>
+  <title>dioxus-example</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/./assets/tailwind.css">
+
+</head>
+<body>"#
+            .to_string(),
+        after_body: r#"  <script type="module">
+    import init from "/./assets/assets/dioxus/dioxus-example.js";
+    init("/./assets/assets/dioxus/dioxus-example_bg.wasm").then(wasm => {
+      if (wasm.__wbindgen_start == undefined) {
+        wasm.main();
+      }
+    });
+  </script>
+
+</body>
+</html"#
+            .to_string(),
+    };
+    let mut renderer = IncrementalRenderer::builder()
+        .static_dir("static")
+        .map_path(|route| {
+            let mut path = std::env::current_dir().unwrap();
+            path.push("static");
+            for segment in route.split('/') {
+                path.push(segment);
+            }
+            println!("built: static{}", route);
+            path
+        })
+        .build();
+    renderer.renderer_mut().pre_render = true;
+    pre_cache_static_routes::<Route, _>(&mut renderer, &wrapper)
+        .await
+        .unwrap();
+}
+
+// Hydrate the page
+#[cfg(not(feature = "server"))]
 fn main() {
-    // Init logger
-    dioxus_logger::init(Level::INFO).expect("failed to init logger");
-    launch(App);
+    #[cfg(all(feature = "web", not(feature = "server")))]
+    dioxus::web::launch::launch(App, vec![], dioxus::web::Config::default().hydrate(true));
 }
 
 fn App() -> Element {

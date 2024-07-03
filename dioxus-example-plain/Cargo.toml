@@ -1,0 +1,18 @@
+[package]
+name = "router-static-generation"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { git = "https://github.com/DioxusLabs/dioxus#90c46afd120194ed593f17d4f06778647a32c669", features = [
+  "static-generation",
+  "router",
+] }
+tracing-subscriber = "0.3.18"
+
+[features]
+default = []
+server = ["dioxus/axum"]
+web = ["dioxus/web"]
