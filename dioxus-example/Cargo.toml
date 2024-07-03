@@ -1,0 +1,23 @@
+[package]
+name = "dioxus-example"
+version = "0.1.0"
+authors = ["Christian Kjær <ckl@codetalk.io>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1.0.197", features = ["derive"] }
+
+dioxus = { version = "0.5", features = ["fullstack", "router"] }
+
+web-sys = { version = "0.3", features = ["Window"] }
+
+# Debug
+tracing = "0.1.40"
+dioxus-logger = "0.5.0"
+
+[features]
+default = []
+server = ["dioxus/axum"]
+web = ["dioxus/web"]

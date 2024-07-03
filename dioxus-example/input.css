@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black text-white text-center justify-center mt-16;
+  a {
+    @apply underline mx-4;
+  }
+  button {
+    @apply bg-neutral-700 p-2 m-4;
+  }
+}
