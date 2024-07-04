@@ -15,10 +15,6 @@
     {
       "name": "dioxus-example",
       "path": "dioxus-example"
-    },
-    {
-      "name": "perseus-example",
-      "path": "perseus-example"
     }
   ],
   "settings": {

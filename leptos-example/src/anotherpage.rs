@@ -1,22 +1,19 @@
+#![allow(non_snake_case)]
 use leptos::*;
 use leptos_dom::window;
-use wasm_bindgen::JsValue;
 
 #[component]
 pub fn AnotherPage() -> impl IntoView {
-    let (window_height, set_window_height) = create_signal::<Option<JsValue>>(None);
+    let (window_height, set_window_height) = create_signal::<Option<f64>>(None);
     let window_text = move || {
-        if let Some(w) = window_height().map(|w| w.as_f64().unwrap()) {
-            format!(": {w}")
-        } else {
-            "".to_owned()
-        }
+        window_height()
+            .map(|w| format!(": {}", w))
+            .unwrap_or("".to_owned())
     };
 
     // Ensure that the window object is available before calling browser APIs.
     create_effect(move |_| {
-        let window = window();
-        set_window_height(window.inner_height().ok());
+        set_window_height(window().inner_height().ok().map(|w| w.as_f64().unwrap()));
     });
 
     view! {
