@@ -3,7 +3,7 @@
 async fn main() {
     use axum::Router;
     use leptos::*;
-    use leptos_axum::{generate_route_list_with_ssg, build_static_routes, LeptosRoutes}; // This line here
+    use leptos_axum::{build_static_routes, generate_route_list_with_ssg, LeptosRoutes}; // This line here
     use leptos_example::app::*;
     use leptos_example::fileserv::file_and_error_handler;
 
@@ -14,23 +14,26 @@ async fn main() {
     // The file would need to be included with the executable when moved to deployment
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
-    let addr = leptos_options.site_addr;
 
     // Build our static routes
     let (routes, static_data_map) = generate_route_list_with_ssg(App); // This line here
     build_static_routes(&leptos_options, App, &routes, static_data_map).await; // This line here
 
-    // build our application with a route
-    let app = Router::new()
-        .leptos_routes(&leptos_options, routes.clone(), App)
-        .fallback(file_and_error_handler)
-        .with_state(leptos_options);
+    #[cfg(not(feature = "static"))]
+    {
+        let addr = leptos_options.site_addr;
+        // build our application with a route
+        let app = Router::new()
+            .leptos_routes(&leptos_options, routes.clone(), App)
+            .fallback(file_and_error_handler)
+            .with_state(leptos_options);
 
-    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    logging::log!("listening on http://{}", &addr);
-    axum::serve(listener, app.into_make_service())
-        .await
-        .unwrap();
+        let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
+        logging::log!("listening on http://{}", &addr);
+        axum::serve(listener, app.into_make_service())
+            .await
+            .unwrap();
+    }
 }
 
 #[cfg(not(feature = "ssr"))]

@@ -21,7 +21,9 @@ pub fn App() -> impl IntoView {
             let mut outside_errors = Errors::default();
             outside_errors.insert_with_default_key(AppError::NotFound);
             view! { <ErrorTemplate outside_errors/> }.into_view()
-        }>
+        }
+        trailing_slash=TrailingSlash::Exact
+        >
             <main>
                 <Routes>
                     // This line here
@@ -34,14 +36,14 @@ pub fn App() -> impl IntoView {
                     // This line here
                     <StaticRoute
                         mode=StaticMode::Upfront
-                        path="/sub-page"
+                        path="/sub-page/"
                         view=SubPage
                         static_params=move || Box::pin(async move { StaticParamsMap::default() })
                     />
                     // This line here
                     <StaticRoute
                         mode=StaticMode::Upfront
-                        path="/another-page"
+                        path="/another-page/"
                         view=AnotherPage
                         static_params=move || Box::pin(async move { StaticParamsMap::default() })
                     />
@@ -62,8 +64,8 @@ fn HomePage() -> impl IntoView {
         <h1>"Welcome to Leptos!"</h1>
         <button on:click=on_click>"Click Me: " {count}</button>
         // This line here
-        <A href="/sub-page">"Sub page"</A>
+        <A href="/sub-page/">"Sub page"</A>
         // This line here
-        <A href="/another-page">"Another page"</A>
+        <A href="/another-page/">"Another page"</A>
     }
 }
