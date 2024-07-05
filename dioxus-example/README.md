@@ -7,8 +7,14 @@
 bunx tailwindcss -i ./input.css -o ./assets/tailwind.css --watch
 ```
 
-Launch the Dioxus Fullstack app:
+Launch the Dioxus app:
 
 ```bash
 dx serve --platform fullstack
+```
+
+Build the static files:
+
+```bash
+dx build --platform fullstack --release && ./dist/dioxus-example
 ```
