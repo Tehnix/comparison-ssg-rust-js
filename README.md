@@ -6,4 +6,4 @@ Currently, the following frameworks are included:
 
 - [Next.js](https://nextjs.org/docs) in `next-example`
 - [Leptos](https://book.leptos.dev) in `leptos-example`
-- [WIP] [Dioxus](https://dioxuslabs.com/learn/0.5/) in `dioxus-example`
+- [Dioxus](https://dioxuslabs.com/learn/0.5/) in `dioxus-example`
